@@ -31,17 +31,17 @@ Built with [CustomTkinter](https://github.com/TomSchimansky/CustomTkinter) and [
 git clone https://github.com/FreeAkrep/Lotus-Lantern-GUI
 cd Lotus-Lantern-GUI
 ```
-Run "Build.ps1!" as administrator
-If you did not have python 3.14+ installed, the program will ask you to restart the script file. 
-After the build, you will get a new directory **Lotus_Lantern_Installer**, 
+Run "Build.ps1!" as administrator  
+If you did not have python 3.14+ installed, the program will ask you to restart the script file.  
+After the build, you will get a new directory **Lotus_Lantern_Installer**,  
 which will contain the following files:
 -  **Lotus Lantern.exe**,
 -  **README.txt**,
 -  **install_dependencies.bat** 
 
 # 🏆 Credits
-Main Developer: FreeAkrep
-Mod Developere: Likijihy
+Main Developer: FreeAkrep  
+Mod Developere: Likijihy  
 
 BLE Command Logic Inspired By:
 
