@@ -32,8 +32,8 @@ git clone https://github.com/FreeAkrep/Lotus-Lantern-GUI
 cd Lotus-Lantern-GUI
 ```
 Run "Build.ps1!" as administrator
-If you did not have python 3.14+ installed, the program will ask you to restart the script file.
-After the build, you will get a new directory **Lotus_Lantern_Installer**,
+If you did not have python 3.14+ installed, the program will ask you to restart the script file. 
+After the build, you will get a new directory **Lotus_Lantern_Installer**, 
 which will contain the following files:
 -  **Lotus Lantern.exe**,
 -  **README.txt**,
