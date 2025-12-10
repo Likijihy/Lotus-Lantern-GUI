@@ -26,12 +26,13 @@ async def send_effect_speed(client: BleakClient, speed: int):
 
 async def send_mode(client: BleakClient, mode: str):
     mode_map = {
-        "Static": "crossfade_white",
-        "Fade": "crossfade_red_green_blue_yellow_cyan_magenta_white",
-        "Blink": "blink_red_green_blue_yellow_cyan_magenta_white",
-        "Rainbow": "jump_red_green_blue_yellow_cyan_magenta_white",
-        "Strobe": "blink_white",
-        "Wave": "crossfade_red_green_blue",
+        "Статический": "crossfade_white",
+        "Переливание": "crossfade_red_green_blue_yellow_cyan_magenta_white",
+        "Мерцание": "blink_red_green_blue_yellow_cyan_magenta_white",
+        "Радуга": "jump_red_green_blue_yellow_cyan_magenta_white",
+        "Стробы": "blink_white",
+        "Волна": "crossfade_red_green_blue",
+        "Музыкальный": "crossfade_red_green_blue",
     }
     effect_key = mode_map.get(mode)
     if effect_key not in EFFECTS:
