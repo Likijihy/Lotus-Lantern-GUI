@@ -2,7 +2,7 @@
 
 A modern Python desktop app to control BLE LED strips wirelessly.  
 Simple, dark-themed UI with system tray support, persistent settings, and effect previews.  
-Built with [CustomTkinter](https://github.com/TomSchimansky/CustomTkinter) and [Bleak](https://github.com/hbldh/bleak).
+Built with [CustomTkinter](https://github.com/TomSchimansky/CustomTkinter) and [Bleak](https://github.com/hbldh/bleak) and another library.
 
 ![UI Screenshot](https://github.com/Likijihy/Lotus-Lantern-GUI/blob/main/screenshots/ui_main.png?raw=true)
 
