@@ -42,10 +42,6 @@ pyinstaller --noconfirm --onefile --windowed --icon=icon.ico main.py
 ```
 The built .exe will be in the dist/ folder.
 
-```bash
-sudo apt install libbluetooth-dev
-```
-💡 Ensure you have permission to access BLE devices (add user to the bluetooth group or run with sudo).
 # 🏆 Credits
 Main Developer: FreeAkrep
 
