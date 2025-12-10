@@ -42,12 +42,6 @@ pyinstaller --noconfirm --onefile --windowed --icon=icon.ico main.py
 ```
 The built .exe will be in the dist/ folder.
 
-# 🐧 Linux Build
-```bash
-pip install pyinstaller
-pyinstaller --noconfirm --onefile --windowed main.py
-```
-You may need to install Bluetooth development headers:
 ```bash
 sudo apt install libbluetooth-dev
 ```
