@@ -24,26 +24,24 @@ Built with [CustomTkinter](https://github.com/TomSchimansky/CustomTkinter) and [
 
 ### Option 1: Run from Source (Recommended)
 
-1. Install Python 3.10+  
+1. Install Python 3.14+  
 2. Clone this repo:
 
 ```bash
 git clone https://github.com/FreeAkrep/Lotus-Lantern-GUI
 cd Lotus-Lantern-GUI
-pip install -r requirements.txt
-python main.py
 ```
-# 🪟 Windows Build
-
-Build the standalone .exe using PyInstaller
-```bash
-pip install pyinstaller
-pyinstaller --noconfirm --onefile --windowed --icon=icon.ico main.py
-```
-The built .exe will be in the dist/ folder.
+Run "Build.ps1!" as administrator
+If you did not have python 3.14+ installed, the program will ask you to restart the script file.
+After the build, you will get a new directory **Lotus_Lantern_Installer**,
+which will contain the following files:
+-  **Lotus Lantern.exe**,
+-  **README.txt**,
+-  **install_dependencies.bat** 
 
 # 🏆 Credits
 Main Developer: FreeAkrep
+Mod Developere: Likijihy
 
 BLE Command Logic Inspired By:
 
