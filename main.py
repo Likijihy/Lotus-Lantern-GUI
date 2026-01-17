@@ -136,7 +136,7 @@ class BLEApp(ctk.CTk):
             self.iconbitmap(icon_path)
 
         self.current_color = (0, 255, 0)
-        self.current_brightness = 128
+        self.current_brightness = 50
         self.current_mode = "Статический"
         self.current_effect_speed = 50
         self.sensitivity = 50
@@ -380,7 +380,7 @@ class BLEApp(ctk.CTk):
         ).pack(pady=5)
 
         self.create_slider_with_value(
-            "Яркость", 0, 255, self.current_brightness, self.change_brightness, "brightness_value"
+            "Яркость", 0, 100, self.current_brightness, self.change_brightness, "brightness_value"
         )
 
         mode_frame = ctk.CTkFrame(self, fg_color="transparent")
@@ -527,8 +527,11 @@ class BLEApp(ctk.CTk):
         self.color_preview.configure(fg_color=hex_color)
 
     def change_brightness(self, value):
-        self.current_brightness = int(value)
-        self.brightness_value.configure(text=str(int(value)))
+        # Ensure brightness is integer and clamped to 0-100
+        b = int(round(float(value)))
+        b = max(0, min(100, b))
+        self.current_brightness = b
+        self.brightness_value.configure(text=str(b))
         self.ble.queue_send(send_brightness, self.current_brightness)
 
     def change_effect_speed(self, value):
@@ -713,7 +716,18 @@ class BLEApp(ctk.CTk):
             with open(CONFIG_PATH, "r", encoding='utf-8') as f:
                 config = json.load(f)
                 self.current_color = tuple(config.get("color", (0, 255, 0)))
-                self.current_brightness = config.get("brightness", 128)
+                # Support older config values saved in 0-255 range by mapping to 0-100
+                raw_b = config.get("brightness", 50)
+                try:
+                    raw_b = int(raw_b)
+                except Exception:
+                    raw_b = 50
+                if raw_b > 100:
+                    # map 0-255 -> 0-100
+                    mapped = int(round(raw_b * 100.0 / 255.0))
+                    self.current_brightness = max(0, min(100, mapped))
+                else:
+                    self.current_brightness = max(0, min(100, raw_b))
                 self.current_mode = config.get("mode", "Статический")
                 self.current_effect_speed = config.get("effect_speed", 50)
                 self.sensitivity = config.get("sensitivity", 50)
