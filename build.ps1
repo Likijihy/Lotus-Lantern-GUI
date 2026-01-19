@@ -48,7 +48,6 @@ $pyinstallerArgs = @(
     "main.py",
     "-n", "Lotus Lantern",
     "-F",
-    "-w",
     "--add-data", "icon.ico;.",
     "-i", "icon.ico",
     "--hidden-import", "customtkinter",
@@ -82,38 +81,41 @@ if (Test-Path $distPath) {
     
     Copy-Item (Join-Path $distPath "Lotus Lantern.exe") -Destination $outputDir
     
-    $installScript = @"
-@echo off
-echo Installing system dependencies for Lotus Lantern...
-echo.
+    Write-Host "Installing system dependencies for Lotus Lantern..."
+Write-Host
 
-echo Checking for Visual C++ Redistributable...
-if not exist "%SystemRoot%\System32\vcruntime140.dll" (
-    echo Installing Visual C++ Redistributable...
-    powershell -Command "Invoke-WebRequest -Uri 'https://aka.ms/vs/17/release/vc_redist.x64.exe' -OutFile 'vc_redist.x64.exe'"
-    start /wait vc_redist.x64.exe /install /quiet /norestart
-    del vc_redist.x64.exe
-    echo Visual C++ Redistributable installed.
-) else (
-    echo Visual C++ Redistributable is already installed.
-)
-    
-echo.
-echo Ensuring Bluetooth services are running...
-sc config bthserv start= auto
-net start bthserv >nul 2>&1
+Write-Host "Checking for Visual C++ Redistributable..."
+if (-not (Test-Path "$env:SystemRoot\System32\vcruntime140.dll")) {
+    Write-Host "Installing Visual C++ Redistributable..."
 
-echo.
-echo Granting permissions to Bluetooth...
-powershell -Command "Add-AppxPackage -Register 'C:\Windows\System32\BluetoothAPIs.dll' -ForceApplicationShutdown" >nul 2>&1
+    $vcUrl  = 'https://aka.ms/vs/17/release/vc_redist.x64.exe'
+    $vcPath = Join-Path $env:TEMP 'vc_redist.x64.exe'
 
-echo.
-echo Setup complete! You can now run Lotus Lantern.
-echo A reboot may be required for audio and Bluetooth features to work properly.
-echo.
-pause
-"@
-    $installScript | Out-File (Join-Path $outputDir "install_dependencies.bat") -Encoding ascii
+    Invoke-WebRequest -Uri $vcUrl -OutFile $vcPath
+    $p = Start-Process -FilePath $vcPath -ArgumentList '/install', '/quiet', '/norestart' -Wait -PassThru
+    if ($p.ExitCode -ne 0) {
+        Write-Host "VC++ installer exited with code $($p.ExitCode)." -ForegroundColor Red
+    }
+
+    Remove-Item $vcPath -ErrorAction SilentlyContinue
+    Write-Host "Visual C++ Redistributable installed."
+} else {
+    Write-Host "Visual C++ Redistributable is already installed."
+}
+
+Write-Host
+Write-Host "Ensuring Bluetooth services are running..."
+sc.exe config bthserv start= auto | Out-Null
+net.exe start bthserv 2>&1 | Out-Null
+
+Write-Host
+Write-Host "Granting permissions to Bluetooth..."
+
+Write-Host
+Write-Host "Setup complete! You can now run Lotus Lantern."
+Write-Host "A reboot may be required for audio and Bluetooth features to work properly."
+Write-Host
+Read-Host "Press Enter to continue..."
     
     $readme = @"
 # Lotus Lantern
@@ -138,7 +140,7 @@ Application for controlling LED strip via Bluetooth.
 
 ## Troubleshooting
 If the LED strip doesn't respond:
-1. Run the application as Administrator
+1. Run the script as Administrator (dependencies are installed automatically)
 2. Check if your LED strip model is supported (ELK-BLEDOM/ELK-BLEDOB)
 3. Ensure Bluetooth is enabled in Windows Settings
 4. Check logs in %APPDATA%\Lotus Lantern\app.log for detailed errors
@@ -162,4 +164,5 @@ If music mode doesn't work:
 
 if (Test-Path $buildDir) {
     Remove-Item $buildDir -Recurse -Force
+
 }
