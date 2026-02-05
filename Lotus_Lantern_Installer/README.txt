@@ -20,7 +20,7 @@ Application for controlling LED strip via Bluetooth.
 
 ## Troubleshooting
 If the LED strip doesn't respond:
-1. Run the application as Administrator
+1. Run the script as Administrator (dependencies are installed automatically)
 2. Check if your LED strip model is supported (ELK-BLEDOM/ELK-BLEDOB)
 3. Ensure Bluetooth is enabled in Windows Settings
 4. Check logs in %APPDATA%\Lotus Lantern\app.log for detailed errors
