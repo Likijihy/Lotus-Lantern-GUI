@@ -1,2 +1,0 @@
-bleak==0.21.1
-customtkinter==5.2.1
