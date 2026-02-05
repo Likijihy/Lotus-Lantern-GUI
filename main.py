@@ -591,7 +591,7 @@ class BLEApp(ctk.CTk):
             self.last_music_color = color
 
             current_time = time.time()
-            if current_time - self.last_send_time > 0.05:
+            if current_time - self.last_send_time > 0.016:
                 self.ble.queue_send(send_color, color)
                 self.last_send_time = current_time
         except Exception as e:

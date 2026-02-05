@@ -1,1 +1,0 @@
-This inforation project file.
